@@ -1,0 +1,22 @@
+fid  = fopen( 'no_temp.txt', 'r') ; % tekstbestand met output
+a = textscan(fid, '%f %f %f');
+t_1=a{1,2};
+n_1=a{1,1};
+fid  = fopen( 'with_temp.txt', 'r') ; % tekstbestand met output
+a = textscan(fid, '%f %f %f');
+t_2=a{1,2};
+n_2=a{1,1};
+
+figure
+%yyaxis left
+loglog(n_1,t_1), hold on, loglog(n_1,n_1.^3.*10^-8)
+loglog(n_2,t_2), loglog(n_2,n_2.^2.*10^-7.5)
+%yyaxis right
+
+
+xlabel('N')
+grid on, grid minor
+set(gca,'fontsize',16)
+title('Tijdsmeting expt') 
+
+print('Figure','-dpng')
