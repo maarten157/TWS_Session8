@@ -35,20 +35,18 @@ namespace tws {
       : data_( m.data_ )
       { }
 
-      /*template <typename Matrix>
+      template <typename Matrix>
       matrix( Matrix const& m )
       : data_( m.size() )
       {
         for (size_type i=0; i<size(); ++i) { data_[i] = m[i] ; }
-      }*/
+      }
 
       inline size_type size() const { return data_.size() ; }
 
       inline size_type rows() const { return Rows ;}
-      inline size_type rows(int r) {Rows = r; return Rows ;}
 
       inline size_type columns() const { return Columns;}
-      inline size_type& columns() { return Columns;}
 
       inline value_type operator[](size_type i) const
       { return data_[i] ; }
@@ -66,8 +64,6 @@ namespace tws {
 
       template <typename Scalar>
       inline void operator=(matrix<Scalar> const& m ) {
-         //assert(this->rows()==m.rows());
-         //assert(this->columns()==m.columns());
          std::copy(m.begin(),m.end(),data_.begin());
          Rows=m.rows();
          Columns=m.columns();
@@ -75,8 +71,6 @@ namespace tws {
 
       template <typename Matrix>
       inline void operator=(Matrix const& m ) {
-         //assert(this->rows()==m.rows());
-         //assert(this->columns()==m.columns());
          for (size_type i=0; i<size(); ++i) { data_[i] = m[i] ; }
          Rows=m.rows();
          Columns=m.columns();
@@ -95,15 +89,7 @@ namespace tws {
          assert(this->columns()==m.columns());
          for (size_type i=0; i<size(); ++i) { data_[i] = data_[i]+m[i] ; }
       }
-/*
-      inline decltype(auto) begin(){return data_.begin();}
 
-      inline decltype(auto) end(){return data_.end();}
-
-      inline decltype(auto) cbegin() const {return data_.cbegin();}
-
-      inline decltype(auto) cend() const {return data_.cend();}
-*/
       void randomize(){
          int seed = 1;
          #ifdef NDEBUG
@@ -137,18 +123,5 @@ namespace tws {
   : std::true_type
   {} ;
 
-/*  template<typename V1, typename V2>
-  inline decltype(auto) inner_product(V1 const& v1, V2 const& v2){
-      assert(v1.size()==v2.size());
-      decltype(v1[0]*v2[0]) sum=0;
-      for (typename V1::size_type i=0;i<v1.size();i++) sum+=v1[i]*v2[i];
-      return sum;
-  }
-
-  template<typename V1>
-  inline decltype(auto) norm_2(V1 const& v1){
-      return std::sqrt(inner_product(v1,v1));
-  }
-*/
 }
 #endif

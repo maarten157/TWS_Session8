@@ -129,15 +129,11 @@ namespace tws {
 
       static_assert( is_matrix<M1>::value, "M1 should be a matrix" ) ;
 
-//      static_assert( is_matrix<V2>::value, "V2 should be a matrix" ) ;
-
-// constructor
     public:
       matrix_mul( M1 const& m1, S1 const& s1 )
       : m1_( m1 )
       , s1_( s1 )
       {}
-
 
       size_type size() const {
         return m1_.size() ;
@@ -175,7 +171,7 @@ namespace tws {
   template <typename M1, typename S1>
   struct is_matrix< matrix_mul<M1,S1> >
   {
-    static bool const value = is_matrix<M1>::value;// && is_matrix<V2>::value ;
+    static bool const value = is_matrix<M1>::value;
   };
 
 
@@ -189,12 +185,9 @@ namespace tws {
 
       static_assert( is_matrix<M1>::value, "M1 should be a matrix" ) ;
 
-//      static_assert( is_matrix<V2>::value, "V2 should be a matrix" ) ;
-
-// constructor
     public:
       matrix_trans( M1 const& m1)
-      :m1_( m1 ) // matrix m1_(m1.columns,m1.rows,m1(0,0)) //m1_( m1 )
+      :m1_( m1 )
       {}
 
       size_type size() const {
@@ -221,17 +214,15 @@ namespace tws {
   template <typename M1>
   struct is_matrix< matrix_trans<M1> >
   {
-    static bool const value = is_matrix<M1>::value;// && is_matrix<V2>::value ;
+    static bool const value = is_matrix<M1>::value;
   };
 
-}
+} // namespace tws
+
   template <typename M1>
   inline decltype(auto) transpose( M1 const& m1 ){
       return tws::matrix_trans<M1>( m1 ) ;
   };
-
-
-//} // namespace tws
 
 #endif
 

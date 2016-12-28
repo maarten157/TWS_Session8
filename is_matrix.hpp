@@ -10,17 +10,6 @@ namespace tws {
   struct is_matrix
   : std::false_type
   {} ;
-
-/*  template <typename T>
-  typename std::enable_if< is_vector<T>::value, std::ostream &>::type operator<<( std::ostream& os, T const& v ) {
-    os << "(" << v.size() << ")[" << v(0) ;
-    for (typename T::size_type i=1; i<(v.size()); ++i) {
-      os << "," << v(i) ;
-    }
-    os << "]" ;
-    return os ;
-  }*/
-
 }
 
 #endif

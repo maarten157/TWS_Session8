@@ -26,7 +26,6 @@ namespace tws {
         assert( v1_.size()==v2_.size() ) ;
       }
 
-
       size_type size() const {
         return v1_.size() ;
       }
@@ -40,7 +39,6 @@ namespace tws {
         assert( i>=0 && i<size() ) ;
         return v1_(i) + v2_(i) ;
       }
-
 
     private:
       V1 const& v1_ ;
@@ -93,7 +91,6 @@ namespace tws {
         return v1_(i) - v2_(i) ;
       }
 
-
     private:
       V1 const& v1_ ;
       V2 const& v2_ ;
@@ -110,7 +107,6 @@ namespace tws {
     static bool const value = is_vector<V1>::value && is_vector<V2>::value ;
   };
 
-
 // product scalar
 
   template <typename V1, typename S1>
@@ -123,15 +119,11 @@ namespace tws {
 
       static_assert( is_vector<V1>::value, "V1 should be a Vector" ) ;
 
-//      static_assert( is_vector<V2>::value, "V2 should be a Vector" ) ;
-
-// constructor
     public:
       vector_mul( V1 const& v1, S1 const& s1 )
       : v1_( v1 )
       , s1_( s1 )
       {}
-
 
       size_type size() const {
         return v1_.size() ;
@@ -165,9 +157,8 @@ namespace tws {
   template <typename V1, typename S1>
   struct is_vector< vector_mul<V1,S1> >
   {
-    static bool const value = is_vector<V1>::value;// && is_vector<V2>::value ;
+    static bool const value = is_vector<V1>::value;
   };
-
 
 // product Matrix-vector
 
@@ -182,7 +173,6 @@ namespace tws {
       static_assert( is_matrix<M1>::value, "M1 should be a Matrix" ) ;
       static_assert( is_vector<V1>::value, "V1 should be a Vector" ) ;
 
-// constructor
     public:
       matrix_vector_mul( M1 const& m1, V1 const& v1 )
       : m1_( m1 )
@@ -219,10 +209,8 @@ namespace tws {
   template <typename M1, typename V1>
   struct is_vector< matrix_vector_mul<M1,V1> >
   {
-    static bool const value = is_vector<V1>::value;// && is_vector<V2>::value ;
+    static bool const value = is_vector<V1>::value;
   };
-
-
 
 } // namespace tws
 
@@ -230,7 +218,6 @@ namespace tws {
   inline decltype(auto) multiply( M1 const& m1, V1 const& v1 ){
       return tws::matrix_vector_mul<M1,V1>( m1,v1 ) ;
   };
-
 
 #endif
 
