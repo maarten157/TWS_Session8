@@ -1,8 +1,30 @@
-// Maarten Sprengers    2016-2017    WIT    r0256246
-// uren gewerkt aan de taak: 8uur 30min
-// compiler: c++ -O3 -std=c++14 -DNDEBUG time_meas.cpp
-// machine durbuy
-// total of 8 files
+/* Maarten Sprengers    2016-2017    WIT    r0256246
+   uren gewerkt aan de taak: 8uur 30min
+   compiler: c++ -O3 -std=c++14 -DNDEBUG time_meas.cpp
+   machine durbuy
+   total of 8 files
+   files used: vector.hpp, matrix.hpp, is_vector.hpp, is_matrix.hpp,
+   vector_expression_operations.hpp, matrix_expression_operations.hpp
+
+* Voor- en nadelen van expressie templates
+   + Er wordt geen geheugen extra gebruikt voor het uitrekenen van de
+      gevraagde berekening.
+   - Als er meerdere maal hetzelfde (tussenresultaat) opgevraagd wordt,
+     wordt dit telkens berekend, dit kan zorgen voor een hogere complexiteit.
+     -> dit is wat er gebeurt bij de berekening zonder temp variabele.
+
+* Complexiteit met en zonder temp variabele
+   * Zonder: - matrix*vector is van O(N^2)
+             - vector*scalar is O(N) dit is verwaarloosbaar voor grote N
+             - voor matrix*(matrix*vector) wordt O(n^2) N maal aangeroepen
+               en wordt dit dus O(N^3)
+   * Met: - wordt er 2 maalmatrix*vector gedaan, dit blijft O(N^2)
+          - vector*scalar is O(N) dit is verwaarloosbaar voor grote N
+
+   -> Op de grafiek is dit resultaat duidelijk waar te nemen. Op de x-as staat
+      N, de grootte van de matrix (NxN) en vector (N). Op de y-as het gemiddelde
+      van de tijdsmetingen voor die bepaalde N met en zonder een temp variabele. 
+*/
 
 #include "vector.hpp"
 #include "matrix.hpp"
@@ -12,6 +34,7 @@
 
 int main() {
 
+// performantie metingen
   int max_pow=11;
   int number_exp=25;
   int discard=5;
@@ -63,8 +86,6 @@ if (c==0) {
  t_m_2(n,1)=average_time;
  t_m_2(n,2)=(std::sqrt(squared_time/(number_exp-1)));
 }
-
-// std::cout<<"Time(s): "<<average_time<<" "<<std::sqrt(squared_time/(number_exp-1))<<std::endl;
 }
 }
 std::cout<<t_m_1;
